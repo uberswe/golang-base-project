@@ -1,6 +1,6 @@
 # Golang Base Project
 
-A minimal Golang project with user authentication ready out of the box. All frontend assets should be less than 50 kB on every page load. 
+A minimal Golang project with user authentication ready out of the box. All frontend assets should be less than 100 kB on every page load. 
 
 See a live example at: [https://www.golangbase.com](https://www.golangbase.com)
 
