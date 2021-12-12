@@ -36,6 +36,7 @@ func (controller Controller) LoginPost(c *gin.Context) {
 		})
 		log.Println(res.Error)
 		c.HTML(http.StatusInternalServerError, "login.html", pd)
+		return
 	}
 
 	if res.RowsAffected == 0 {
@@ -44,6 +45,7 @@ func (controller Controller) LoginPost(c *gin.Context) {
 			Content: loginError,
 		})
 		c.HTML(http.StatusBadRequest, "login.html", pd)
+		return
 	}
 
 	if user.ActivatedAt == nil {
@@ -52,6 +54,7 @@ func (controller Controller) LoginPost(c *gin.Context) {
 			Content: "Account is not activated yet.",
 		})
 		c.HTML(http.StatusBadRequest, "login.html", pd)
+		return
 	}
 
 	password := c.PostForm("password")
@@ -62,6 +65,7 @@ func (controller Controller) LoginPost(c *gin.Context) {
 			Content: loginError,
 		})
 		c.HTML(http.StatusBadRequest, "login.html", pd)
+		return
 	}
 
 	// Generate a ulid for the current session
@@ -83,6 +87,7 @@ func (controller Controller) LoginPost(c *gin.Context) {
 		})
 		log.Println(res.Error)
 		c.HTML(http.StatusInternalServerError, "login.html", pd)
+		return
 	}
 
 	session := sessions.Default(c)
@@ -96,6 +101,7 @@ func (controller Controller) LoginPost(c *gin.Context) {
 		})
 		log.Println(err)
 		c.HTML(http.StatusInternalServerError, "login.html", pd)
+		return
 	}
 
 	c.Redirect(http.StatusTemporaryRedirect, "/admin")
