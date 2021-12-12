@@ -1,0 +1,17 @@
+{{ template "header.html" . }}
+
+<main class="flex-shrink-0">
+    <div class="container">
+        <h1 class="mt-5">Search Results</h1>
+        {{ template "messages.html" . }}
+        {{ range $result := .Results }}
+        <div class="search-result">
+            <h3>{{ $result.Title }}</h3>
+            <p>{{ $result.Description }}</p>
+            <p><a href="{{ $result.URL }}">{{ $result.URL }}</a></p>
+        </div>
+        {{ end }}
+    </div>
+</main>
+
+{{ template "footer.html" . }}

@@ -1,0 +1,15 @@
+{{ range $message := .Messages }}
+    {{ if eq $message.Type "error" }}
+<div class="alert alert-danger" role="alert">
+    {{ $message.Content }}
+</div>
+    {{ else if eq $message.Type "success" }}
+<div class="alert alert-success" role="alert">
+    {{ $message.Content }}
+</div>
+    {{ else }}
+<div class="alert alert-info" role="alert">
+    {{ $message.Content }}
+</div>
+    {{ end }}
+{{ end }}

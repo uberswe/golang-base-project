@@ -1,0 +1,49 @@
+# This is a GitHub action which uses SSH and docker to deploy to a server running a local container registry. This is how I deploy my own personal sites.
+name: Build and Deploy to server
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  IMAGE: ${{ github.event.repository.name }}
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install SSH key
+        uses: shimataro/ssh-key-action@v2
+        with:
+          key: ${{ secrets.PRIVATE_SSH_KEY }}
+          known_hosts: ${{ secrets.KNOWN_HOSTS }}
+          if_key_exists: replace
+
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Build
+        run: |-
+          docker build \
+            --tag "localhost:5000/$IMAGE:$GITHUB_SHA" \
+            --build-arg GITHUB_SHA="$GITHUB_SHA" \
+            --build-arg GITHUB_REF="$GITHUB_REF" \
+            .
+
+      - name: Upload
+        run: |-
+          docker save localhost:5000/$IMAGE:$GITHUB_SHA | gzip | ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} docker load
+
+      - name: Publish
+        run: |-
+          ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} docker push localhost:5000/$IMAGE:$GITHUB_SHA
+      - run: |-
+          ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} docker image tag localhost:5000/$IMAGE:$GITHUB_SHA localhost:5000/$IMAGE:latest
+      - run: |-
+          ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} docker push localhost:5000/$IMAGE:latest
+
+      - name: Deploy
+        run: |-
+          ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "cd /var/www/${{ github.event.repository.name }}; docker-compose pull"
