@@ -1,6 +1,10 @@
 # Golang Base Project
 
-A minimal Golang project with user authentication ready out of the box. All frontend assets should be less than 50 kB on every page load. Functionality includes:
+A minimal Golang project with user authentication ready out of the box. All frontend assets should be less than 50 kB on every page load. 
+
+See a live example at: [https://www.golangbase.com](https://www.golangbase.com)
+
+Functionality includes:
 
  - Login
  - Logout
@@ -15,6 +19,10 @@ A minimal Golang project with user authentication ready out of the box. All fron
 This easiest way for me to achieve this was with a database. I decided to use [GORM](https://gorm.io/docs/) which should fully support MySQL, PostgreSQL, SQLite, SQL Server and Clickhouse or any other databases compatible with these dialects.
 
 The frontend is based off of examples from [https://getbootstrap.com/docs/5.0/examples/](https://getbootstrap.com/docs/5.0/examples/).
+
+## Getting started
+
+Simply run `go run cmd/base/main.go` and the entire project should run using an sqlite in-memory database.
 
 ## Project structure
 
