@@ -8,7 +8,6 @@ import (
 	"gorm.io/driver/postgres"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
-	"gorm.io/gorm/logger"
 )
 
 func connectToDatabase(c config.Config) (db *gorm.DB, err error) {
@@ -21,9 +20,7 @@ func connectToDatabase(c config.Config) (db *gorm.DB, err error) {
 		db, err = gorm.Open(sqlite.Open(dsn), &gorm.Config{})
 	} else if c.Database == "mysql" {
 		dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8mb4&parseTime=True&loc=Local", c.DatabaseUsername, c.DatabasePassword, c.DatabaseHost, c.DatabasePort, c.DatabaseName)
-		db, err = gorm.Open(mysql.Open(dsn), &gorm.Config{
-			Logger: logger.Default.LogMode(logger.Info),
-		})
+		db, err = gorm.Open(mysql.Open(dsn), &gorm.Config{})
 	} else if c.Database == "postgres" {
 		dsn := fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s sslmode=disable TimeZone=UTC", c.DatabaseHost, c.DatabaseUsername, c.DatabasePassword, c.DatabaseName, c.DatabasePort)
 		db, err = gorm.Open(postgres.Open(dsn), &gorm.Config{})
@@ -34,7 +31,7 @@ func connectToDatabase(c config.Config) (db *gorm.DB, err error) {
 }
 
 func migrateDatabase(db *gorm.DB) error {
-	err := db.AutoMigrate(&models.Token{}, &models.Session{}, &models.User{}, &models.Website{})
+	err := db.AutoMigrate(&models.User{}, &models.Token{}, &models.Session{}, &models.Website{})
 	seed(db)
 	return err
 }
