@@ -46,4 +46,4 @@ jobs:
 
       - name: Deploy
         run: |-
-          ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "cd /var/www/${{ github.event.repository.name }}; docker-compose pull"
+          ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "cd /var/www/${{ github.event.repository.name }}; docker-compose down; docker-compose pull; docker-compose up -d"
