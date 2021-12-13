@@ -33,6 +33,15 @@ func (controller Controller) Activate(c *gin.Context) {
 		return
 	}
 
+	if activationToken.HasExpired() {
+		pd.Messages = append(pd.Messages, Message{
+			Type:    "error",
+			Content: activationError,
+		})
+		c.HTML(http.StatusBadRequest, "activate.html", pd)
+		return
+	}
+
 	user := models.User{}
 	user.ID = uint(activationToken.ModelID)
 

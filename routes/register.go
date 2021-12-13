@@ -3,6 +3,7 @@ package routes
 import (
 	"fmt"
 	"github.com/gin-gonic/gin"
+	"github.com/go-playground/validator/v10"
 	email2 "github.com/uberswe/golang-base-project/email"
 	"github.com/uberswe/golang-base-project/models"
 	"github.com/uberswe/golang-base-project/util"
@@ -12,6 +13,7 @@ import (
 	"net/http"
 	"net/url"
 	"path"
+	"time"
 )
 
 func (controller Controller) Register(c *gin.Context) {
@@ -55,6 +57,21 @@ func (controller Controller) RegisterPost(c *gin.Context) {
 	}
 
 	email := c.PostForm("email")
+
+	// Validate the email
+	validate := validator.New()
+	err = validate.Var(email, "required,email")
+
+	if err != nil {
+		pd.Messages = append(pd.Messages, Message{
+			Type:    "error",
+			Content: registerError,
+		})
+		log.Println(err)
+		c.HTML(http.StatusInternalServerError, "register.html", pd)
+		return
+	}
+
 	user := models.User{Email: email}
 
 	res := controller.db.Where(&user).First(&user)
@@ -117,6 +134,7 @@ func (controller Controller) activationEmailHandler(userID uint, email string) {
 
 	activationToken.ModelID = int(userID)
 	activationToken.ModelType = "User"
+	activationToken.ExpiresAt = time.Now().Add(time.Minute * 10)
 
 	res = controller.db.Save(&activationToken)
 	if res.Error != nil || res.RowsAffected == 0 {

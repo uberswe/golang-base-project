@@ -65,6 +65,15 @@ func (controller Controller) ResetPasswordPost(c *gin.Context) {
 		return
 	}
 
+	if forgotPasswordToken.HasExpired() {
+		pd.Messages = append(pd.Messages, Message{
+			Type:    "error",
+			Content: resetError,
+		})
+		c.HTML(http.StatusBadRequest, "resetpassword.html", pd)
+		return
+	}
+
 	user := models.User{}
 	user.ID = uint(forgotPasswordToken.ModelID)
 	res = controller.db.Where(&user).First(&user)
