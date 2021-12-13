@@ -18,6 +18,7 @@ func (controller Controller) Search(c *gin.Context) {
 		PageData: PageData{
 			Title:           "Search",
 			IsAuthenticated: isAuthenticated(c),
+			CacheParameter:  controller.config.CacheParameter,
 		},
 	}
 	search := c.PostForm("search")

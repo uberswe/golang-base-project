@@ -70,5 +70,11 @@ func loadEnvVariables() (c config.Config) {
 		}
 		c.RequestsPerMinute = i
 	}
+
+	// CacheParameter is added to the end of static file urls to prevent caching old versions
+	c.CacheParameter = util.RandomString(10)
+	if os.Getenv("CACHE_PARAMETER") != "" {
+		c.CacheParameter = os.Getenv("CACHE_PARAMETER")
+	}
 	return c
 }

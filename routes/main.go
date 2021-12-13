@@ -24,6 +24,7 @@ type PageData struct {
 	Title           string
 	Messages        []Message
 	IsAuthenticated bool
+	CacheParameter  string
 }
 
 type Message struct {

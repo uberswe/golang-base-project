@@ -31,6 +31,7 @@ services:
       - SMTP_SENDER=
       - STRICT_TRANSPORT_SECURITY=false
       - REQUESTS_PER_MINUTE=5
+      - CACHE_PARAMETER=
     depends_on:
       - db
     ports:

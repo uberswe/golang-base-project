@@ -12,13 +12,18 @@ import (
 	"html/template"
 	"io/fs"
 	"log"
+	"math/rand"
 	"net/http"
+	"time"
 )
 
 //go:embed dist/*
 var staticFS embed.FS
 
 func Run() {
+	// When generating random strings we need to provide a seed otherwise we always get the same strings the next time our application starts
+	rand.Seed(time.Now().UnixNano())
+
 	var t *template.Template
 	conf := loadEnvVariables()
 
@@ -50,7 +55,10 @@ func Run() {
 		log.Fatalln(err)
 	}
 
-	r.StaticFS("/assets", http.FS(subFS))
+	assets := r.Group("/assets")
+	assets.Use(middleware.Cache())
+
+	assets.StaticFS("/", http.FS(subFS))
 
 	r.Use(middleware.Session(db))
 	r.Use(middleware.General())

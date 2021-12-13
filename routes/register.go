@@ -18,6 +18,7 @@ func (controller Controller) Register(c *gin.Context) {
 	pd := PageData{
 		Title:           "Register",
 		IsAuthenticated: isAuthenticated(c),
+		CacheParameter:  controller.config.CacheParameter,
 	}
 	c.HTML(http.StatusOK, "register.html", pd)
 }
@@ -29,6 +30,7 @@ func (controller Controller) RegisterPost(c *gin.Context) {
 	pd := PageData{
 		Title:           "Register",
 		IsAuthenticated: isAuthenticated(c),
+		CacheParameter:  controller.config.CacheParameter,
 	}
 	password := c.PostForm("password")
 	if len(password) < 8 {

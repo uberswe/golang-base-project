@@ -17,6 +17,7 @@ func (controller Controller) ForgotPassword(c *gin.Context) {
 	pd := PageData{
 		Title:           "Forgot Password",
 		IsAuthenticated: isAuthenticated(c),
+		CacheParameter:  controller.config.CacheParameter,
 	}
 	c.HTML(http.StatusOK, "forgotpassword.html", pd)
 }
@@ -25,6 +26,7 @@ func (controller Controller) ForgotPasswordPost(c *gin.Context) {
 	pd := PageData{
 		Title:           "Forgot Password",
 		IsAuthenticated: isAuthenticated(c),
+		CacheParameter:  controller.config.CacheParameter,
 	}
 	email := c.PostForm("email")
 	user := models.User{Email: email}
