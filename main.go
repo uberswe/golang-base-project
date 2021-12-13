@@ -5,8 +5,6 @@ import (
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-contrib/sessions/cookie"
 	"github.com/gin-gonic/gin"
-	swaggerFiles "github.com/swaggo/files"
-	ginSwagger "github.com/swaggo/gin-swagger"
 	"github.com/uberswe/golang-base-project/middleware"
 	"github.com/uberswe/golang-base-project/routes"
 	"html/template"
@@ -31,7 +29,6 @@ func Run() {
 	if err != nil {
 		log.Fatalln(err)
 	}
-	log.Println(db)
 
 	err = migrateDatabase(db)
 	if err != nil {
@@ -68,7 +65,6 @@ func Run() {
 	r.GET("/", controller.Index)
 	r.GET("/search", controller.Search)
 	r.POST("/search", controller.Search)
-	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 	r.NoRoute(controller.NoRoute)
 
 	noAuth := r.Group("/")
