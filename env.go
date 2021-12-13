@@ -1,6 +1,7 @@
 package baseproject
 
 import (
+	"github.com/gorilla/securecookie"
 	"github.com/uberswe/golang-base-project/config"
 	"github.com/uberswe/golang-base-project/util"
 	"log"
@@ -19,8 +20,8 @@ func loadEnvVariables() (c config.Config) {
 		c.BaseURL = os.Getenv("BASE_URL")
 	}
 
-	// A random secret will be generated when the application starts if no secret is provided. It is highly recommended to provide a secret.
-	c.CookieSecret = util.GenerateULID()
+	// A random secret will be generated when the application starts if no secret is provided. It is highly recommended providing a secret.
+	c.CookieSecret = string(securecookie.GenerateRandomKey(64))
 	if os.Getenv("COOKIE_SECRET") != "" {
 		c.CookieSecret = os.Getenv("COOKIE_SECRET")
 	}
@@ -69,6 +70,12 @@ func loadEnvVariables() (c config.Config) {
 			return
 		}
 		c.RequestsPerMinute = i
+	}
+
+	// CacheParameter is added to the end of static file urls to prevent caching old versions
+	c.CacheParameter = util.RandomString(10)
+	if os.Getenv("CACHE_PARAMETER") != "" {
+		c.CacheParameter = os.Getenv("CACHE_PARAMETER")
 	}
 	return c
 }

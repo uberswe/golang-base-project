@@ -11,12 +11,14 @@ import (
 	"net/http"
 	"net/url"
 	"path"
+	"time"
 )
 
 func (controller Controller) ForgotPassword(c *gin.Context) {
 	pd := PageData{
 		Title:           "Forgot Password",
 		IsAuthenticated: isAuthenticated(c),
+		CacheParameter:  controller.config.CacheParameter,
 	}
 	c.HTML(http.StatusOK, "forgotpassword.html", pd)
 }
@@ -25,6 +27,7 @@ func (controller Controller) ForgotPasswordPost(c *gin.Context) {
 	pd := PageData{
 		Title:           "Forgot Password",
 		IsAuthenticated: isAuthenticated(c),
+		CacheParameter:  controller.config.CacheParameter,
 	}
 	email := c.PostForm("email")
 	user := models.User{Email: email}
@@ -57,6 +60,8 @@ func (controller Controller) forgotPasswordEmailHandler(userID uint, email strin
 
 	forgotPasswordToken.ModelID = int(userID)
 	forgotPasswordToken.ModelType = "User"
+	// The token will expire 10 minutes after it was created
+	forgotPasswordToken.ExpiresAt = time.Now().Add(time.Minute * 10)
 
 	res = controller.db.Save(&forgotPasswordToken)
 	if res.Error != nil || res.RowsAffected == 0 {

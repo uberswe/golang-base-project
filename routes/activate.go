@@ -14,6 +14,7 @@ func (controller Controller) Activate(c *gin.Context) {
 	pd := PageData{
 		Title:           "Activate",
 		IsAuthenticated: isAuthenticated(c),
+		CacheParameter:  controller.config.CacheParameter,
 	}
 	token := c.Param("token")
 	activationToken := models.Token{
@@ -24,6 +25,15 @@ func (controller Controller) Activate(c *gin.Context) {
 	res := controller.db.Where(&activationToken).First(&activationToken)
 	if res.Error != nil {
 		log.Println(res.Error)
+		pd.Messages = append(pd.Messages, Message{
+			Type:    "error",
+			Content: activationError,
+		})
+		c.HTML(http.StatusBadRequest, "activate.html", pd)
+		return
+	}
+
+	if activationToken.HasExpired() {
 		pd.Messages = append(pd.Messages, Message{
 			Type:    "error",
 			Content: activationError,

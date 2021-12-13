@@ -19,6 +19,7 @@ func (controller Controller) ResetPassword(c *gin.Context) {
 		PageData: PageData{
 			Title:           "Reset Password",
 			IsAuthenticated: isAuthenticated(c),
+			CacheParameter:  controller.config.CacheParameter,
 		},
 		Token: token,
 	}
@@ -34,6 +35,7 @@ func (controller Controller) ResetPasswordPost(c *gin.Context) {
 		PageData: PageData{
 			Title:           "Reset Password",
 			IsAuthenticated: isAuthenticated(c),
+			CacheParameter:  controller.config.CacheParameter,
 		},
 		Token: token,
 	}
@@ -55,6 +57,15 @@ func (controller Controller) ResetPasswordPost(c *gin.Context) {
 
 	res := controller.db.Where(&forgotPasswordToken).First(&forgotPasswordToken)
 	if res.Error != nil {
+		pd.Messages = append(pd.Messages, Message{
+			Type:    "error",
+			Content: resetError,
+		})
+		c.HTML(http.StatusBadRequest, "resetpassword.html", pd)
+		return
+	}
+
+	if forgotPasswordToken.HasExpired() {
 		pd.Messages = append(pd.Messages, Message{
 			Type:    "error",
 			Content: resetError,

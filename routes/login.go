@@ -14,7 +14,9 @@ import (
 
 func (controller Controller) Login(c *gin.Context) {
 	pd := PageData{
-		Title: "Login",
+		Title:           "Login",
+		IsAuthenticated: isAuthenticated(c),
+		CacheParameter:  controller.config.CacheParameter,
 	}
 	c.HTML(http.StatusOK, "login.html", pd)
 }
@@ -24,6 +26,7 @@ func (controller Controller) LoginPost(c *gin.Context) {
 	pd := PageData{
 		Title:           "Login",
 		IsAuthenticated: isAuthenticated(c),
+		CacheParameter:  controller.config.CacheParameter,
 	}
 	email := c.PostForm("email")
 	user := models.User{Email: email}
@@ -76,7 +79,7 @@ func (controller Controller) LoginPost(c *gin.Context) {
 	}
 
 	// Session is valid for 1 hour
-	ses.DeletedAt.Time = time.Now().Add(time.Hour * 1)
+	ses.ExpiresAt = time.Now().Add(time.Hour)
 	ses.UserID = user.ID
 
 	res = controller.db.Save(&ses)

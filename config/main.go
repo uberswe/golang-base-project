@@ -17,4 +17,5 @@ type Config struct {
 	SMTPPort          string
 	SMTPSender        string
 	RequestsPerMinute int
+	CacheParameter    string
 }

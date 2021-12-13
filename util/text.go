@@ -3,6 +3,7 @@ package util
 
 import (
 	"fmt"
+	"math/rand"
 	"net/url"
 	"strings"
 )
@@ -33,4 +34,16 @@ func GetStringBetweenStrings(str string, start string, end string) (result strin
 		return
 	}
 	return str[s : s+e]
+}
+
+// RandomString generates a random string of n length. Based on https://stackoverflow.com/a/22892986/1260548
+func RandomString(n int) string {
+	// remove vowels to make it less likely to generate something offensive
+	var letters = []rune("bcdfghjklmnpqrstvwxzBCDFGHJKLMNPQRSTVWXZ")
+
+	b := make([]rune, n)
+	for i := range b {
+		b[i] = letters[rand.Intn(len(letters))]
+	}
+	return string(b)
 }

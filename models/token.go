@@ -1,6 +1,9 @@
 package models
 
-import "gorm.io/gorm"
+import (
+	"gorm.io/gorm"
+	"time"
+)
 
 type Token struct {
 	gorm.Model
@@ -8,6 +11,11 @@ type Token struct {
 	Type      string
 	ModelID   int
 	ModelType string
+	ExpiresAt time.Time
+}
+
+func (t Token) HasExpired() bool {
+	return t.ExpiresAt.Before(time.Now())
 }
 
 const (
