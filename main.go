@@ -26,7 +26,6 @@ func Run() {
 	if err != nil {
 		log.Fatalln(err)
 	}
-	log.Println(db)
 
 	err = migrateDatabase(db)
 	if err != nil {
