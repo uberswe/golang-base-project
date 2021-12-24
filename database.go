@@ -8,9 +8,26 @@ import (
 	"gorm.io/driver/postgres"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
+	"time"
 )
 
 func connectToDatabase(c config.Config) (db *gorm.DB, err error) {
+	return connectLoop(c, 0)
+}
+
+func connectLoop(c config.Config, count int) (db *gorm.DB, err error) {
+	db, err = attemptConnection(c)
+	if err != nil {
+		if count > 300 {
+			return db, fmt.Errorf("could not connect to database after 300 seconds")
+		}
+		time.Sleep(1 * time.Second)
+		return connectLoop(c, count+1)
+	}
+	return db, err
+}
+
+func attemptConnection(c config.Config) (db *gorm.DB, err error) {
 	if c.Database == "sqlite" {
 		// In-memory sqlite if no database name is specified
 		dsn := "file::memory:?cache=shared"
