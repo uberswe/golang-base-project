@@ -5,13 +5,14 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/uberswe/golang-base-project/middleware"
 	"github.com/uberswe/golang-base-project/models"
-	"github.com/uberswe/golang-base-project/util"
+	"github.com/uberswe/golang-base-project/ulid"
 	"golang.org/x/crypto/bcrypt"
 	"log"
 	"net/http"
 	"time"
 )
 
+// Login renders the HTML of the login page
 func (controller Controller) Login(c *gin.Context) {
 	pd := PageData{
 		Title:           "Login",
@@ -21,6 +22,7 @@ func (controller Controller) Login(c *gin.Context) {
 	c.HTML(http.StatusOK, "login.html", pd)
 }
 
+// LoginPost handles login requests and returns the appropriate HTML and messages
 func (controller Controller) LoginPost(c *gin.Context) {
 	loginError := "Could not login, please make sure that you have typed in the correct email and password. If you have forgotten your password, please click the forgot password link below."
 	pd := PageData{
@@ -72,7 +74,7 @@ func (controller Controller) LoginPost(c *gin.Context) {
 	}
 
 	// Generate a ulid for the current session
-	sessionIdentifier := util.GenerateULID()
+	sessionIdentifier := ulid.Generate()
 
 	ses := models.Session{
 		Identifier: sessionIdentifier,
@@ -94,7 +96,7 @@ func (controller Controller) LoginPost(c *gin.Context) {
 	}
 
 	session := sessions.Default(c)
-	session.Set(middleware.SessionIdentifierKey, sessionIdentifier)
+	session.Set(middleware.SessionIDKey, sessionIdentifier)
 
 	err = session.Save()
 	if err != nil {

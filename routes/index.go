@@ -5,6 +5,7 @@ import (
 	"net/http"
 )
 
+// Index renders the HTML of the index page
 func (controller Controller) Index(c *gin.Context) {
 	pd := PageData{
 		Title:           "Home",

@@ -1,5 +1,7 @@
 # Golang Base Project
 
+[![GoDoc](https://godoc.org/github.com/uberswe/golang-base-project?status.svg)](https://godoc.org/github.com/uberswe/golang-base-project)
+
 A minimal Golang project with user authentication ready out of the box. All frontend assets should be less than 100 kB on every page load. 
 
 See a live example at: [https://www.golangbase.com](https://www.golangbase.com)
@@ -161,6 +163,10 @@ There is a workflow to deploy to my personal server whenever there is a merge to
  - Then I use docker-compose to pull the latest image from the private registry
 
 I use [supervisor](http://supervisord.org/) with [docker-compose](https://docs.docker.com/compose/production/) to run my containers. [Caddy](https://caddyserver.com/) handles the SSL configuration and routing. I use [Ansible](https://docs.ansible.com/ansible/latest/user_guide/playbooks.html) to manage my configurations.
+
+## Documentation
+
+See [GoDoc](https://godoc.org/github.com/uberswe/golang-base-project) for further documentation.
 
 ## Contributions
 

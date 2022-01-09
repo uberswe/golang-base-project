@@ -6,7 +6,7 @@ import (
 	"github.com/go-playground/validator/v10"
 	email2 "github.com/uberswe/golang-base-project/email"
 	"github.com/uberswe/golang-base-project/models"
-	"github.com/uberswe/golang-base-project/util"
+	"github.com/uberswe/golang-base-project/ulid"
 	"golang.org/x/crypto/bcrypt"
 	"gorm.io/gorm"
 	"log"
@@ -16,6 +16,7 @@ import (
 	"time"
 )
 
+// Register renders the HTML content of the register page
 func (controller Controller) Register(c *gin.Context) {
 	pd := PageData{
 		Title:           "Register",
@@ -25,6 +26,7 @@ func (controller Controller) Register(c *gin.Context) {
 	c.HTML(http.StatusOK, "register.html", pd)
 }
 
+// RegisterPost handles requests to register users and returns appropriate messages as HTML content
 func (controller Controller) RegisterPost(c *gin.Context) {
 	passwordError := "Your password must be 8 characters in length or longer"
 	registerError := "Could not register, please make sure the details you have provided are correct and that you do not already have an existing account."
@@ -121,7 +123,7 @@ func (controller Controller) RegisterPost(c *gin.Context) {
 
 func (controller Controller) activationEmailHandler(userID uint, email string) {
 	activationToken := models.Token{
-		Value: util.GenerateULID(),
+		Value: ulid.Generate(),
 		Type:  models.TokenUserActivation,
 	}
 

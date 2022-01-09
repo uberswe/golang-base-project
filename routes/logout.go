@@ -8,9 +8,10 @@ import (
 	"net/http"
 )
 
+// Logout deletes the current user session and redirects the user to the index page
 func (controller Controller) Logout(c *gin.Context) {
 	session := sessions.Default(c)
-	session.Delete(middleware.SessionIdentifierKey)
+	session.Delete(middleware.SessionIDKey)
 	err := session.Save()
 	log.Println(err)
 

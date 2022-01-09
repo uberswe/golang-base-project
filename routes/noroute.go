@@ -5,6 +5,7 @@ import (
 	"net/http"
 )
 
+// NoRoute handles rendering of the 404 page
 func (controller Controller) NoRoute(c *gin.Context) {
 	pd := PageData{
 		Title:           "404 Not Found",

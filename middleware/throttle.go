@@ -8,6 +8,7 @@ import (
 	"time"
 )
 
+// Throttle middleware takes a limit per minute and blocks any additional requests that go over this limit
 func Throttle(limit int) gin.HandlerFunc {
 	store := memory.NewStore()
 

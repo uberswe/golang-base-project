@@ -5,8 +5,6 @@ import (
 	"net/http"
 )
 
-var SessionIdentifierKey = "SESSION_IDENTIFIER"
-
 // NoAuth is for routes that can only be accessed when the user is unauthenticated
 func NoAuth() gin.HandlerFunc {
 	return func(c *gin.Context) {

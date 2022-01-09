@@ -5,7 +5,7 @@ import (
 	"github.com/gin-gonic/gin"
 	email2 "github.com/uberswe/golang-base-project/email"
 	"github.com/uberswe/golang-base-project/models"
-	"github.com/uberswe/golang-base-project/util"
+	"github.com/uberswe/golang-base-project/ulid"
 	"gorm.io/gorm"
 	"log"
 	"net/http"
@@ -14,6 +14,7 @@ import (
 	"time"
 )
 
+// ForgotPassword renders the HTML page where a password request can be initiated
 func (controller Controller) ForgotPassword(c *gin.Context) {
 	pd := PageData{
 		Title:           "Forgot Password",
@@ -23,6 +24,7 @@ func (controller Controller) ForgotPassword(c *gin.Context) {
 	c.HTML(http.StatusOK, "forgotpassword.html", pd)
 }
 
+// ForgotPasswordPost handles the POST request which requests a password reset and then renders the HTML page with the appropriate message
 func (controller Controller) ForgotPasswordPost(c *gin.Context) {
 	pd := PageData{
 		Title:           "Forgot Password",
@@ -47,7 +49,7 @@ func (controller Controller) ForgotPasswordPost(c *gin.Context) {
 
 func (controller Controller) forgotPasswordEmailHandler(userID uint, email string) {
 	forgotPasswordToken := models.Token{
-		Value: util.GenerateULID(),
+		Value: ulid.Generate(),
 		Type:  models.TokenPasswordReset,
 	}
 
