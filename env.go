@@ -3,7 +3,7 @@ package baseproject
 import (
 	"github.com/gorilla/securecookie"
 	"github.com/uberswe/golang-base-project/config"
-	"github.com/uberswe/golang-base-project/util"
+	"github.com/uberswe/golang-base-project/text"
 	"log"
 	"os"
 	"strconv"
@@ -73,12 +73,12 @@ func loadEnvVariables() (c config.Config) {
 	}
 
 	// CacheParameter is added to the end of static file urls to prevent caching old versions
-	c.CacheParameter = util.RandomString(10)
+	c.CacheParameter = text.RandomString(10)
 	if os.Getenv("CACHE_PARAMETER") != "" {
 		c.CacheParameter = os.Getenv("CACHE_PARAMETER")
 	}
 
-	// CacheMaxAge is how many seconds to cache static assets
+	// CacheMaxAge is how many seconds to cache static assets, 1 year by default
 	c.CacheMaxAge = 31536000
 	if os.Getenv("CACHE_MAX_AGE") != "" {
 		i, err := strconv.Atoi(os.Getenv("CACHE_MAX_AGE"))
