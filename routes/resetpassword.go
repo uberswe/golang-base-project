@@ -8,11 +8,13 @@ import (
 	"net/http"
 )
 
+// ResetPasswordPageData defines additional data needed to render the reset password page
 type ResetPasswordPageData struct {
 	PageData
 	Token string
 }
 
+// ResetPassword renders the HTML page for resetting the users password
 func (controller Controller) ResetPassword(c *gin.Context) {
 	token := c.Param("token")
 	pd := ResetPasswordPageData{
@@ -26,6 +28,7 @@ func (controller Controller) ResetPassword(c *gin.Context) {
 	c.HTML(http.StatusOK, "resetpassword.html", pd)
 }
 
+// ResetPasswordPost handles post request used to reset users passwords
 func (controller Controller) ResetPasswordPost(c *gin.Context) {
 	passwordError := "Your password must be 8 characters in length or longer"
 	resetError := "Could not reset password, please try again"

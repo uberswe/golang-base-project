@@ -8,11 +8,13 @@ import (
 	"net/http"
 )
 
+// SearchData holds additional data needed to render the search HTML page
 type SearchData struct {
 	PageData
 	Results []models.Website
 }
 
+// Search renders the search HTML page and any search results
 func (controller Controller) Search(c *gin.Context) {
 	pd := SearchData{
 		PageData: PageData{

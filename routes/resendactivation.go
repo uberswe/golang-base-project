@@ -7,6 +7,7 @@ import (
 	"net/http"
 )
 
+// ResendActivation renders the HTML page used to request a new activation email
 func (controller Controller) ResendActivation(c *gin.Context) {
 	pd := PageData{
 		Title:           "Resend Activation Email",
@@ -16,6 +17,7 @@ func (controller Controller) ResendActivation(c *gin.Context) {
 	c.HTML(http.StatusOK, "resendactivation.html", pd)
 }
 
+// ResendActivationPost handles the post request for requesting a new activation email
 func (controller Controller) ResendActivationPost(c *gin.Context) {
 	pd := PageData{
 		Title:           "Resend Activation Email",

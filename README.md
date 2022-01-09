@@ -1,8 +1,14 @@
 # Golang Base Project
 
+[![GoDoc](https://godoc.org/github.com/uberswe/golang-base-project?status.svg)](https://godoc.org/github.com/uberswe/golang-base-project)
+
 A minimal Golang project with user authentication ready out of the box. All frontend assets should be less than 100 kB on every page load. 
 
 See a live example at: [https://www.golangbase.com](https://www.golangbase.com)
+
+Projects that used this template as a starting point:
+ 
+ - [tournify/web](https://github.com/tournify/web) - A website for creating tournaments
 
 Functionality includes:
 
@@ -22,7 +28,93 @@ The frontend is based off of examples from [https://getbootstrap.com/docs/5.0/ex
 
 ## Getting started
 
-Simply run `go run cmd/base/main.go` and the entire project should run using an sqlite in-memory database.
+You can run this with go by typing `go run cmd/base/main.go` and the entire project should run using an sqlite in-memory database.
+
+You can also use Docker.
+
+### Docker
+
+A dockerfile and docker compose file is provided to make running this project easy. Simply run `docker-compose up`.
+
+You will need to change the env variables for sending email, when testing locally I recommend [Mailtrap.io](https://mailtrap.io/).
+
+If you want to change the docker-compose file I recommend making a copy and overriding the base file with your own file like so `docker-compose -f docker-compose.yml -f docker-compose.local.yml up --build -d`.
+
+### Environment variables
+
+This project uses environment variables and there are several ways to set them. If you are using docker see the article [Environment variables in Compose](https://docs.docker.com/compose/environment-variables/). Twilio has a more general guide on [how to set environment variables for Windows, Mac OS and Linux](https://www.twilio.com/blog/2017/01/how-to-set-environment-variables.html).
+
+The following variables can currently be set:
+
+#### PORT
+
+Port sets the port that the application should listen on for HTTP requests. A common port is 8080 and if you run the application locally you should see the application at `http://localhost:8080`.
+
+#### BASE_URL
+
+This url is mainly used for emails since it is considered unsafe to fetch the current url from headers. This should be set to url of the domain you are hosting the project on.
+
+#### COOKIE_SECRET
+
+This is the key used to authenticate the cookie value using HMAC. It is recommended to use a key with 32 or 64 bytes. This will default to a random 64 byte key if no value is set. Please read more about keys on [gorilla/securecookie](https://github.com/gorilla/securecookie).
+
+If you don't set this to a value you might get an error like `ERROR! securecookie: the value is not valid` this is because a new key is generated every time you start the application and you have old cookies in your browser with an invalid HMAC.
+
+#### DATABASE
+
+The database you would like to use such as `mysql` or `sqlite`. See the [GORM documentation for more supported databases](https://gorm.io/docs/connecting_to_the_database.html).
+
+#### DATABASE_HOST
+
+The database host is usually localhost if running on the same machine or the container name, `db` in our case, if running with docker. If you have a remote database host you would set this to the ip or domain of that host.
+
+#### DATABASE_PORT
+
+The port of the database host.
+
+#### DATABASE_USERNAME
+
+Username used to authenticate to the database.
+
+#### DATABASE_PASSWORD
+
+Password used to authenticate to the database.
+
+#### SMTP_USERNAME
+
+Username used for authentication when sending emails over SMTP. For local development you can try using a free service like [Mailtrap.io](https://mailtrap.io/).
+
+#### SMTP_PASSWORD
+
+Password used for authentication when sending emails over SMTP.
+
+#### SMTP_HOST
+
+Host used for sending emails over SMTP.
+
+#### SMTP_PORT
+
+The port for the host used for sending emails over SMTP.
+
+#### SMTP_SENDER
+
+This will be the email shown in the `From:` field in emails.
+
+#### STRICT_TRANSPORT_SECURITY
+
+This will enable or disable strict transport security which sets a header that forces SSL. [Read more about HSTS here](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Strict-Transport-Security).
+
+#### REQUESTS_PER_MINUTE
+
+Used for throttling requests on authentication related endpoints. This value is how many times requests can be made per minute. Set to 5 by default.
+
+#### CACHE_PARAMETER
+
+This parameter is added to the end of static assets like so `/assets/js/main.js?c=rLWjPDCQTh`. A random one is set by default every time the application starts but you can set the `CACHE_PARAMETER` variable if you would like to control this in some other way.
+
+#### CACHE_MAX_AGE
+
+Sets the max-age time in seconds for the `Cache-Control` header. By default this header is set to 1 year.
 
 ## Project structure
 
@@ -39,12 +131,6 @@ There is a `/models` package which contains all the database models.
 The `/routes` package contains all the route functions and logic. Typically, I try to break of the logic into other packages when functions become too big but I have no strict rule here.
 
 All in all I have tried to keep the project simple and easy to understand. I want this project to serve as a template for myself and perhaps others when you want to create a new website.
-
-## Docker
-
-A dockerfile and docker compose file is provided to make running this project easy. Simply run `docker-compose up`.
-
-You will need to change the env variables for sending email, when testing locally I recommend [Mailtrap.io](https://mailtrap.io/).
 
 ## Dependencies
 
@@ -77,6 +163,10 @@ There is a workflow to deploy to my personal server whenever there is a merge to
  - Then I use docker-compose to pull the latest image from the private registry
 
 I use [supervisor](http://supervisord.org/) with [docker-compose](https://docs.docker.com/compose/production/) to run my containers. [Caddy](https://caddyserver.com/) handles the SSL configuration and routing. I use [Ansible](https://docs.ansible.com/ansible/latest/user_guide/playbooks.html) to manage my configurations.
+
+## Documentation
+
+See [GoDoc](https://godoc.org/github.com/uberswe/golang-base-project) for further documentation.
 
 ## Contributions
 

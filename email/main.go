@@ -5,23 +5,26 @@ import (
 	"bytes"
 	"fmt"
 	"github.com/uberswe/golang-base-project/config"
-	"github.com/uberswe/golang-base-project/util"
+	"github.com/uberswe/golang-base-project/text"
 	"log"
 	"mime/multipart"
 	"net/smtp"
 	"strings"
 )
 
+// Service holds a golang-base-project config.Config and provides functions to send emails
 type Service struct {
 	Config config.Config
 }
 
+// New takes a golang-base-project config.Config and returns an instance of Service
 func New(c config.Config) Service {
 	return Service{
 		Config: c,
 	}
 }
 
+// Send sends an email with the provided subject and message to the provided email.
 func (s Service) Send(to string, subject string, message string) {
 	// Authentication.
 	auth := smtp.PlainAuth("", s.Config.SMTPUsername, s.Config.SMTPPassword, s.Config.SMTPHost)
@@ -34,8 +37,8 @@ func (s Service) Send(to string, subject string, message string) {
 	_, _ = fmt.Fprintf(&b, "Content-Type: multipart/alternative; charset=\"UTF-8\"; boundary=\"%s\"\r\n", writer.Boundary())
 	_, _ = fmt.Fprintf(&b, "\r\n\r\n--%s\r\nContent-Type: %s; charset=UTF-8;\nContent-Transfer-Encoding: 8bit\r\n\r\n", writer.Boundary(), "text/plain")
 	b.Write([]byte(message))
-	htmlMessage := util.StringLinkToHTMLLink(message)
-	htmlMessage = util.NL2BR(htmlMessage)
+	htmlMessage := text.LinkToHTMLLink(message)
+	htmlMessage = text.Nl2Br(htmlMessage)
 	_, _ = fmt.Fprintf(&b, "\r\n\r\n--%s\r\nContent-Type: %s; charset=UTF-8;\nContent-Transfer-Encoding: 8bit\r\n\r\n", writer.Boundary(), "text/html")
 	b.Write([]byte(htmlMessage))
 
@@ -43,7 +46,7 @@ func (s Service) Send(to string, subject string, message string) {
 
 	sender := s.Config.SMTPSender
 	if strings.Contains(sender, "<") {
-		sender = util.GetStringBetweenStrings(sender, "<", ">")
+		sender = text.BetweenStrings(sender, "<", ">")
 	}
 
 	// Sending email.

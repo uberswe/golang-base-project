@@ -5,6 +5,7 @@ import (
 	"net/http"
 )
 
+// Admin renders the admin dashboard
 func (controller Controller) Admin(c *gin.Context) {
 	pd := PageData{
 		Title:           "Admin",

@@ -8,6 +8,7 @@ import (
 	"time"
 )
 
+// Activate handles requests used to activate a users account
 func (controller Controller) Activate(c *gin.Context) {
 	activationError := "Please provide a valid activation token"
 	activationSuccess := "Account activated. You may now proceed to login to your account."
