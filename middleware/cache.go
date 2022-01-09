@@ -1,10 +1,13 @@
 package middleware
 
-import "github.com/gin-gonic/gin"
+import (
+	"fmt"
+	"github.com/gin-gonic/gin"
+)
 
-func Cache() gin.HandlerFunc {
+func Cache(maxAge int) gin.HandlerFunc {
 	return func(c *gin.Context) {
-		c.Header("Cache-Control", "public, max-age=60")
+		c.Header("Cache-Control", fmt.Sprintf("public, max-age=%d", maxAge))
 		c.Next()
 	}
 }

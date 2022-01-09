@@ -53,7 +53,7 @@ func Run() {
 	}
 
 	assets := r.Group("/assets")
-	assets.Use(middleware.Cache())
+	assets.Use(middleware.Cache(conf.CacheMaxAge))
 
 	assets.StaticFS("/", http.FS(subFS))
 
