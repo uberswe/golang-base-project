@@ -32,6 +32,7 @@ services:
       - STRICT_TRANSPORT_SECURITY=false
       - REQUESTS_PER_MINUTE=5
       - CACHE_PARAMETER=
+      - CACHE_MAX_AGE=
     depends_on:
       - db
     ports:

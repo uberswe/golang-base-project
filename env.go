@@ -77,5 +77,16 @@ func loadEnvVariables() (c config.Config) {
 	if os.Getenv("CACHE_PARAMETER") != "" {
 		c.CacheParameter = os.Getenv("CACHE_PARAMETER")
 	}
+
+	// CacheMaxAge is how many seconds to cache static assets
+	c.CacheMaxAge = 31536000
+	if os.Getenv("CACHE_MAX_AGE") != "" {
+		i, err := strconv.Atoi(os.Getenv("CACHE_MAX_AGE"))
+		if err != nil {
+			log.Fatalln(err)
+			return
+		}
+		c.CacheMaxAge = i
+	}
 	return c
 }

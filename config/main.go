@@ -18,4 +18,5 @@ type Config struct {
 	SMTPSender        string
 	RequestsPerMinute int
 	CacheParameter    string
+	CacheMaxAge       int
 }
