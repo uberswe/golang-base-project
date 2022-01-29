@@ -71,6 +71,31 @@ func seed(db *gorm.DB) {
 			Description: "Learn how to install Go on your machine and read the documentation on the Go website.",
 			URL:         "https://go.dev/learn/",
 		},
+		{
+			Title:       "Uberswe on Github",
+			Description: "I am the creator of Golang Base Project. This is my Github profile.",
+			URL:         "https://github.com/uberswe",
+		},
+		{
+			Title:       "Tournify",
+			Description: "A website to create tournaments or free which uses this project as a base.",
+			URL:         "https://tournify.io",
+		},
+		{
+			Title:       "GORM",
+			Description: "The fantastic ORM library for Golang.",
+			URL:         "https://gorm.io/",
+		},
+		{
+			Title:       "Bootstrap",
+			Description: "Quickly design and customize responsive mobile-first sites with Bootstrap, the world’s most popular front-end open source toolkit, featuring Sass variables and mixins, responsive grid system, extensive prebuilt components, and powerful JavaScript plugins.",
+			URL:         "https://getbootstrap.com/",
+		},
+		{
+			Title:       "Gin Web Framework",
+			Description: "Gin is a HTTP web framework written in Go (Golang). It features a Martini-like API with much better performance -- up to 40 times faster. If you need smashing performance, get yourself some Gin.",
+			URL:         "https://github.com/gin-gonic/gin",
+		},
 	}
 
 	for _, w := range websites {
