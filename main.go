@@ -107,6 +107,8 @@ func Run() {
 	// We want to handle both POST and GET requests on the /search route. We define both but use the same function to handle the requests.
 	r.GET("/search", controller.Search)
 	r.POST("/search", controller.Search)
+	r.Any("/search/:page", controller.Search)
+	r.Any("/search/:page/:query", controller.Search)
 
 	// We define our 404 handler for when a page can not be found
 	r.NoRoute(controller.NoRoute)

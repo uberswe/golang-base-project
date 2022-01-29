@@ -11,6 +11,14 @@
             <p><a href="{{ $result.URL }}">{{ $result.URL }}</a></p>
         </div>
         {{ end }}
+        <div class="pagination">
+        {{ if .Prev }}
+        <a href="{{ .PrevURL }}">{{ call .Trans "Previous" }}</a>
+        {{ end }}
+        {{ if .Next }}
+        <a href="{{ .NextURL }}">{{ call .Trans "Next" }}</a>
+        {{ end }}
+        </div>
     </div>
 </main>
 
