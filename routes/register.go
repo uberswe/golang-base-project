@@ -18,24 +18,18 @@ import (
 
 // Register renders the HTML content of the register page
 func (controller Controller) Register(c *gin.Context) {
-	pd := PageData{
-		Title:           "Register",
-		IsAuthenticated: isAuthenticated(c),
-		CacheParameter:  controller.config.CacheParameter,
-	}
+	pd := controller.DefaultPageData(c)
+	pd.Title = pd.Trans("Register")
 	c.HTML(http.StatusOK, "register.html", pd)
 }
 
 // RegisterPost handles requests to register users and returns appropriate messages as HTML content
 func (controller Controller) RegisterPost(c *gin.Context) {
-	passwordError := "Your password must be 8 characters in length or longer"
-	registerError := "Could not register, please make sure the details you have provided are correct and that you do not already have an existing account."
-	registerSuccess := "Thank you for registering. An activation email has been sent with steps describing how to activate your account."
-	pd := PageData{
-		Title:           "Register",
-		IsAuthenticated: isAuthenticated(c),
-		CacheParameter:  controller.config.CacheParameter,
-	}
+	pd := controller.DefaultPageData(c)
+	passwordError := pd.Trans("Your password must be 8 characters in length or longer")
+	registerError := pd.Trans("Could not register, please make sure the details you have provided are correct and that you do not already have an existing account.")
+	registerSuccess := pd.Trans("Thank you for registering. An activation email has been sent with steps describing how to activate your account.")
+	pd.Title = pd.Trans("Register")
 	password := c.PostForm("password")
 	if len(password) < 8 {
 		pd.Messages = append(pd.Messages, Message{
@@ -111,7 +105,7 @@ func (controller Controller) RegisterPost(c *gin.Context) {
 	}
 
 	// Generate activation token and send activation email
-	go controller.activationEmailHandler(user.ID, email)
+	go controller.activationEmailHandler(user.ID, email, pd.Trans)
 
 	pd.Messages = append(pd.Messages, Message{
 		Type:    "success",
@@ -121,7 +115,7 @@ func (controller Controller) RegisterPost(c *gin.Context) {
 	c.HTML(http.StatusOK, "register.html", pd)
 }
 
-func (controller Controller) activationEmailHandler(userID uint, email string) {
+func (controller Controller) activationEmailHandler(userID uint, email string, trans func(string) string) {
 	activationToken := models.Token{
 		Value: ulid.Generate(),
 		Type:  models.TokenUserActivation,
@@ -130,7 +124,7 @@ func (controller Controller) activationEmailHandler(userID uint, email string) {
 	res := controller.db.Where(&activationToken).First(&activationToken)
 	if (res.Error != nil && res.Error != gorm.ErrRecordNotFound) || res.RowsAffected > 0 {
 		// If the activation token already exists we try to generate it again
-		controller.activationEmailHandler(userID, email)
+		controller.activationEmailHandler(userID, email, trans)
 		return
 	}
 
@@ -143,10 +137,10 @@ func (controller Controller) activationEmailHandler(userID uint, email string) {
 		log.Println(res.Error)
 		return
 	}
-	controller.sendActivationEmail(activationToken.Value, email)
+	controller.sendActivationEmail(activationToken.Value, email, trans)
 }
 
-func (controller Controller) sendActivationEmail(token string, email string) {
+func (controller Controller) sendActivationEmail(token string, email string, trans func(string) string) {
 	u, err := url.Parse(controller.config.BaseURL)
 	if err != nil {
 		log.Println(err)
@@ -159,5 +153,5 @@ func (controller Controller) sendActivationEmail(token string, email string) {
 
 	emailService := email2.New(controller.config)
 
-	emailService.Send(email, "User Activation", fmt.Sprintf("Use the following link to activate your account. If this was not requested by you, please ignore this email.\n%s", activationURL))
+	emailService.Send(email, trans("User Activation"), fmt.Sprintf(trans("Use the following link to activate your account. If this was not requested by you, please ignore this email.\n%s"), activationURL))
 }

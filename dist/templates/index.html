@@ -2,9 +2,9 @@
 
 <main class="flex-shrink-0">
     <div class="container">
-        <h1 class="mt-5">Golang Base Project</h1>
-        <p class="lead">A simple website with user login and registration. The frontend uses <a href="https://getbootstrap.com/docs/5.0/getting-started/introduction/">Bootstrap 5</a> and the backend is written in <a href="https://go.dev/">Go</a>.</p>
-        <p>Read more about this project on <a href="https://github.com/uberswe/golang-base-project">GitHub</a>.</p>
+        <h1 class="mt-5">{{ call .Trans "site_name" }}</h1>
+        <p class="lead">{{ call .Trans "A simple website with user login and registration." }} {{ call .Trans "The frontend uses" }} <a href="https://getbootstrap.com/docs/5.0/getting-started/introduction/">Bootstrap 5</a> {{ call .Trans "and the backend is written in" }} <a href="https://go.dev/">Go</a>.</p>
+        <p>{{ call .Trans "Read more about this project on" }} <a href="https://github.com/uberswe/golang-base-project">GitHub</a>.</p>
     </div>
 </main>
 

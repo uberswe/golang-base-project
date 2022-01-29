@@ -164,6 +164,12 @@ There is a workflow to deploy to my personal server whenever there is a merge to
 
 I use [supervisor](http://supervisord.org/) with [docker-compose](https://docs.docker.com/compose/production/) to run my containers. [Caddy](https://caddyserver.com/) handles the SSL configuration and routing. I use [Ansible](https://docs.ansible.com/ansible/latest/user_guide/playbooks.html) to manage my configurations.
 
+## Translations
+
+This project uses [go-i18n](https://github.com/nicksnyder/go-i18n) to handle translations. Only English and Swedish is currently supported, but I would gladly add more languages if someone would like to contribute.
+
+To update languages first run `goi18n extract` to update `active.en.toml`. Then run `goi18n merge active.*.toml` to generate `translate.*.toml` which can then be translated. Finally, run `goi18n merge active.*.toml translate.*.toml` to merge the translated files into the active files.
+
 ## Documentation
 
 See [GoDoc](https://godoc.org/github.com/uberswe/golang-base-project) for further documentation.

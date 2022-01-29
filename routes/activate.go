@@ -10,13 +10,10 @@ import (
 
 // Activate handles requests used to activate a users account
 func (controller Controller) Activate(c *gin.Context) {
-	activationError := "Please provide a valid activation token"
-	activationSuccess := "Account activated. You may now proceed to login to your account."
-	pd := PageData{
-		Title:           "Activate",
-		IsAuthenticated: isAuthenticated(c),
-		CacheParameter:  controller.config.CacheParameter,
-	}
+	pd := controller.DefaultPageData(c)
+	activationError := pd.Trans("Please provide a valid activation token")
+	activationSuccess := pd.Trans("Account activated. You may now proceed to login to your account.")
+	pd.Title = pd.Trans("Activate")
 	token := c.Param("token")
 	activationToken := models.Token{
 		Value: token,

@@ -7,10 +7,7 @@ import (
 
 // Admin renders the admin dashboard
 func (controller Controller) Admin(c *gin.Context) {
-	pd := PageData{
-		Title:           "Admin",
-		IsAuthenticated: isAuthenticated(c),
-		CacheParameter:  controller.config.CacheParameter,
-	}
+	pd := controller.DefaultPageData(c)
+	pd.Title = pd.Trans("Admin")
 	c.HTML(http.StatusOK, "admin.html", pd)
 }
