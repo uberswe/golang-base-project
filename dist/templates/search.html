@@ -2,7 +2,7 @@
 
 <main class="flex-shrink-0">
     <div class="container">
-        <h1 class="mt-5">Search Results</h1>
+        <h1 class="mt-5">{{ call .Trans "Search Results" }}</h1>
         {{ template "messages.html" . }}
         {{ range $result := .Results }}
         <div class="search-result">

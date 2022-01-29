@@ -2,11 +2,15 @@ package baseproject
 
 import (
 	"embed"
+	"fmt"
+	"github.com/BurntSushi/toml"
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-contrib/sessions/cookie"
 	"github.com/gin-gonic/gin"
+	"github.com/nicksnyder/go-i18n/v2/i18n"
 	"github.com/uberswe/golang-base-project/middleware"
 	"github.com/uberswe/golang-base-project/routes"
+	"golang.org/x/text/language"
 	"html/template"
 	"io/fs"
 	"log"
@@ -26,6 +30,20 @@ func Run() {
 
 	// We load environment variables, these are only read when the application launches
 	conf := loadEnvVariables()
+
+	// Translations
+	bundle := i18n.NewBundle(language.English)
+	bundle.RegisterUnmarshalFunc("toml", toml.Unmarshal)
+	languages := []string{
+		"en",
+		"sv",
+	}
+	for _, l := range languages {
+		_, err := bundle.LoadMessageFile(fmt.Sprintf("active.%s.toml", l))
+		if err != nil {
+			log.Fatalln(err)
+		}
+	}
 
 	// We connect to the database using the configuration generated from the environment variables.
 	db, err := connectToDatabase(conf)
@@ -81,7 +99,7 @@ func Run() {
 	r.Use(middleware.General())
 
 	// A new instance of the routes controller is created
-	controller := routes.New(db, conf)
+	controller := routes.New(db, conf, bundle)
 
 	// Any request to / will call controller.Index
 	r.GET("/", controller.Index)

@@ -14,22 +14,16 @@ import (
 
 // Login renders the HTML of the login page
 func (controller Controller) Login(c *gin.Context) {
-	pd := PageData{
-		Title:           "Login",
-		IsAuthenticated: isAuthenticated(c),
-		CacheParameter:  controller.config.CacheParameter,
-	}
+	pd := controller.DefaultPageData(c)
+	pd.Title = pd.Trans("Login")
 	c.HTML(http.StatusOK, "login.html", pd)
 }
 
 // LoginPost handles login requests and returns the appropriate HTML and messages
 func (controller Controller) LoginPost(c *gin.Context) {
-	loginError := "Could not login, please make sure that you have typed in the correct email and password. If you have forgotten your password, please click the forgot password link below."
-	pd := PageData{
-		Title:           "Login",
-		IsAuthenticated: isAuthenticated(c),
-		CacheParameter:  controller.config.CacheParameter,
-	}
+	pd := controller.DefaultPageData(c)
+	loginError := pd.Trans("Could not login, please make sure that you have typed in the correct email and password. If you have forgotten your password, please click the forgot password link below.")
+	pd.Title = pd.Trans("Login")
 	email := c.PostForm("email")
 	user := models.User{Email: email}
 
@@ -56,7 +50,7 @@ func (controller Controller) LoginPost(c *gin.Context) {
 	if user.ActivatedAt == nil {
 		pd.Messages = append(pd.Messages, Message{
 			Type:    "error",
-			Content: "Account is not activated yet.",
+			Content: pd.Trans("Account is not activated yet."),
 		})
 		c.HTML(http.StatusBadRequest, "login.html", pd)
 		return

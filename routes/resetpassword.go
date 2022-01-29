@@ -17,30 +17,26 @@ type ResetPasswordPageData struct {
 // ResetPassword renders the HTML page for resetting the users password
 func (controller Controller) ResetPassword(c *gin.Context) {
 	token := c.Param("token")
+	pdPre := controller.DefaultPageData(c)
+	pdPre.Title = pdPre.Trans("Reset Password")
 	pd := ResetPasswordPageData{
-		PageData: PageData{
-			Title:           "Reset Password",
-			IsAuthenticated: isAuthenticated(c),
-			CacheParameter:  controller.config.CacheParameter,
-		},
-		Token: token,
+		PageData: pdPre,
+		Token:    token,
 	}
 	c.HTML(http.StatusOK, "resetpassword.html", pd)
 }
 
 // ResetPasswordPost handles post request used to reset users passwords
 func (controller Controller) ResetPasswordPost(c *gin.Context) {
-	passwordError := "Your password must be 8 characters in length or longer"
-	resetError := "Could not reset password, please try again"
+	pdPre := controller.DefaultPageData(c)
+	passwordError := pdPre.Trans("Your password must be 8 characters in length or longer")
+	resetError := pdPre.Trans("Could not reset password, please try again")
 
 	token := c.Param("token")
+	pdPre.Title = pdPre.Trans("Reset Password")
 	pd := ResetPasswordPageData{
-		PageData: PageData{
-			Title:           "Reset Password",
-			IsAuthenticated: isAuthenticated(c),
-			CacheParameter:  controller.config.CacheParameter,
-		},
-		Token: token,
+		PageData: pdPre,
+		Token:    token,
 	}
 	password := c.PostForm("password")
 
@@ -125,7 +121,7 @@ func (controller Controller) ResetPasswordPost(c *gin.Context) {
 
 	pd.Messages = append(pd.Messages, Message{
 		Type:    "success",
-		Content: "Your password has successfully been reset.",
+		Content: pdPre.Trans("Your password has successfully been reset."),
 	})
 
 	c.HTML(http.StatusOK, "resetpassword.html", pd)

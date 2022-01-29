@@ -1,0 +1,203 @@
+[404_message_1]
+hash = "sha1-bcadd04af7cf1fa64f31f38899045f82685d55a7"
+other = "Sidan du letar efter kunde inte hittas."
+
+[404_message_2]
+hash = "sha1-5805972e75bdf639b44d9deb0460971aa4b3525b"
+other = "för att återgå till huvudsidan."
+
+[404_not_found]
+hash = "sha1-5b65037351caeb0e5a48d963d7ffa88d0271d546"
+other = "404 Sidan Finns Inte"
+
+[activate]
+hash = "sha1-92ef08325a4813563a3110359906076374683282"
+other = "Aktivera"
+
+[activation_success]
+hash = "sha1-97cd06296a78166b20d8fab740f0b699c3a90b5e"
+other = "Kontot aktiverat. Du kan nu fortsätta att logga in på ditt konto."
+
+[activation_validation_token]
+hash = "sha1-1f11e2f3e762728845f9adccc50758470bca3418"
+other = "Ange en giltig aktiveringstoken"
+
+[admin]
+hash = "sha1-4e7afebcfbae000b22c7c85e5560f89a2a0280b4"
+other = "Admin"
+
+[admin_dashboard]
+hash = "sha1-9f1362cde54e66a589837b63e41769eeeca76388"
+other = "Admin Dashboard"
+
+[click_here]
+hash = "sha1-0049f8894e41937ebb9111cd3def6749049fb50f"
+other = "Klicka här"
+
+[created_by]
+hash = "sha1-5d73cc30510c739ed68c572c5199e106d325b648"
+other = "Skapad av"
+
+[dashboard_message]
+hash = "sha1-cd2bf2ee8212e8af2ba8d2b47153c7ca383adf80"
+other = "Du har nu en autentiserad session, du kan logga ut med länken i navigeringsfältet ovan."
+
+[email_address]
+hash = "sha1-c94d3175a6560565410511df2cebab9cda96027e"
+other = "E-postadress"
+
+[footer_message_1]
+hash = "sha1-14d277545460f1796542547a5cf2151fc433f917"
+other = "Skapa en fork av detta projekt på"
+
+[forgot_password]
+hash = "sha1-4c29f7f0335807c2524d8c36d531496aee23f473"
+other = "Glömt ditt lösenord?"
+
+[forgot_password_message]
+hash = "sha1-e9ae7548f4477dc0f04e78ac836393242f0682a6"
+other = "Använd formuläret nedan för att återställa ditt lösenord. Om vi har ett konto med din e-post kommer du att få instruktioner om hur du återställer ditt lösenord."
+
+[forgot_password_success]
+hash = "sha1-d25d119c050b6ac501c231415759e5ec3a72de9b"
+other = "Ett e-postmeddelande med instruktioner som beskriver hur du återställer ditt lösenord har skickats."
+
+[home]
+hash = "sha1-70f8bb9a8a5393ef080507a89e4b98d139000d65"
+other = "Hem"
+
+[index_message_1]
+hash = "sha1-dc5bb22d1389141a7db9916410bc6d88db00c339"
+other = "En enkel webbplats med användarinloggning och registrering."
+
+[index_message_2]
+hash = "sha1-506b20db7cd3410ef335d47d623d3b868333570b"
+other = "Till vår frontend används"
+
+[index_message_3]
+hash = "sha1-35b4b7fe61e07add7f32d4d636120ba28a107da3"
+other = "och vår backend använder"
+
+[index_message_4]
+hash = "sha1-ca5f9ad5b945d7e0e9b4554e5647d8d8038fdb21"
+other = "Läs mer om detta projekt på"
+
+[lang_key]
+hash = "sha1-094b0fe0e302854af1311afab85b5203ba457a3b"
+other = "sv"
+
+[login]
+hash = "sha1-4e5a2893bdcc7d239c1db72e4c4ffbe4bea73174"
+other = "Logga in"
+
+[login_activated_error]
+hash = "sha1-25e7e4d45cbacbbf3ca6dbef0c4541d1e5a29a94"
+other = "Kontot är inte aktiverat ännu."
+
+[login_error]
+hash = "sha1-63818d94ab9bded7e8c2f4785e50a7f5893f142e"
+other = "Kunde inte logga in, se till att du har skrivit in rätt e-postadress och lösenord. Om du har glömt ditt lösenord, klicka på länken 'glömt ditt lösenord?' nedan."
+
+[login_terms]
+hash = "sha1-ea0e769c166cd14f9bca7d9c7acfb6b3821e05bc"
+other = "Genom att trycka på knappen nedan för att logga in godkänner du användningen av cookies på denna webbplats."
+
+[logout]
+hash = "sha1-e43d612e11f1568f2373e719d4c4b08dcecdc7cc"
+other = "Logga ut"
+
+[no_results_found]
+hash = "sha1-658e79f9dc7fca34dc164cbb79e1c0be3cdebf23"
+other = "Inga resultat hittades"
+
+[password]
+hash = "sha1-8be3c943b1609fffbfc51aad666d0a04adf83c9d"
+other = "Lösenord"
+
+[password_error]
+hash = "sha1-1ee13120caefba4ef187011d65cff5a61da5e5df"
+other = "Ditt lösenord måste vara 8 tecken långt eller längre"
+
+[password_reset]
+hash = "sha1-79167df1dd0bc2f673932f531fce1d7b36b8be21"
+other = "Lösenordsåterställning"
+
+[password_reset_email]
+hash = "sha1-844372e0b366c2d90720b680e27aee05d4f1ea3b"
+other = "Använd följande länk för att återställa ditt lösenord. Om detta inte begärdes av dig, ignorera detta e-postmeddelande.\n%s"
+
+[password_reset_success]
+hash = "sha1-e9d5c887a57a274b7b839b8109625c324f3d6536"
+other = "Ditt lösenord har återställts."
+
+[register]
+hash = "sha1-d672995a14650d0e018026b64f297663d8c71c8d"
+other = "Registrera"
+
+[register_error]
+hash = "sha1-cb20bd219572313ae8b6b2a03b816a13f43c907c"
+other = "Det gick inte att genomföra registreringen, se till att uppgifterna du har angett är korrekta och att du inte redan har ett befintligt konto."
+
+[register_success]
+hash = "sha1-300d4e738bd6bf5c14a303c6c84f36a1bbf2132f"
+other = "Tack för din registrering. Ett aktiveringsmail har skickats med steg som beskriver hur du aktiverar ditt konto."
+
+[request_activation_email]
+hash = "sha1-8c63a65400fb703de388b9b17b308b62f7477b16"
+other = "Begär aktiveringsmail"
+
+[request_new_activation_email]
+hash = "sha1-fc2463c91df0c8d36687a82096815486578eb3e4"
+other = "Begär ett nytt aktiveringsmail"
+
+[request_reset_email]
+hash = "sha1-2a2c3609527fa9a048ae9f66b12597c7fa10379c"
+other = "Begär återställningsmail"
+
+[resend_activation_email]
+hash = "sha1-2a765254a16b8d77c89125cabc42996f28dac3e6"
+other = "Skicka aktiveringsmail igen"
+
+[resend_activation_email_message]
+hash = "sha1-1b1134c510f756f97e23dfb6c2eef4ec1cfdbcc6"
+other = "Om du redan har registrerat dig men aldrig aktiverat ditt konto kan du använda formuläret nedan för att begära ett nytt aktiveringsmail."
+
+[resend_activation_email_subject]
+hash = "sha1-2a765254a16b8d77c89125cabc42996f28dac3e6"
+other = "Skicka aktiveringsmail igen"
+
+[resend_activation_email_success]
+hash = "sha1-53b66e75cf183ff99c2253a23c47dc3501dc2669"
+other = "Ett nytt aktiveringsmail har skickats om kontot finns och inte redan är aktiverat. Kom ihåg att kontrollera din skräppost om e-postmeddelandet inte visas i din inkorg."
+
+[reset_password]
+hash = "sha1-3fb75e3bfe4de94eb5198656fa9de95352dab915"
+other = "Återställ lösenord"
+
+[reset_password_error]
+hash = "sha1-5affbbb3d71cd9502970b1422824b63c46d35ac9"
+other = "Det gick inte att återställa lösenordet, försök igen"
+
+[reset_password_message]
+hash = "sha1-9dcea7196a4837caabeec6ff42187ac2e06ecfe0"
+other = "Vänligen ange ett nytt lösenord."
+
+[search]
+hash = "sha1-bce06414177f72ab70e6387b6af9f8ceef0d6049"
+other = "Sök"
+
+[search_results]
+hash = "sha1-5e054413dacd642ddacc8f8ec146442bea000086"
+other = "Sökresultat"
+
+[site_name]
+hash = "sha1-ffe1d232b4c4a3aaa1070a9c1fb4bf5cf0ea650d"
+other = "Golang Base Project"
+
+[user_activation]
+hash = "sha1-065b4495daa8deaa8b7faad2c855f786bdb9e8ee"
+other = "Användaraktivering"
+
+[user_activation_email]
+hash = "sha1-66f145eb134e23445d22ae815c3415a1849baf3e"
+other = "Använd följande länk för att aktivera ditt konto. Om detta inte begärdes av dig, ignorera detta e-postmeddelande.\n%s"

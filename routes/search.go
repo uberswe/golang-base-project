@@ -16,12 +16,10 @@ type SearchData struct {
 
 // Search renders the search HTML page and any search results
 func (controller Controller) Search(c *gin.Context) {
+	pdS := controller.DefaultPageData(c)
+	pdS.Title = pdS.Trans("Search")
 	pd := SearchData{
-		PageData: PageData{
-			Title:           "Search",
-			IsAuthenticated: isAuthenticated(c),
-			CacheParameter:  controller.config.CacheParameter,
-		},
+		PageData: pdS,
 	}
 	search := c.PostForm("search")
 
@@ -36,7 +34,7 @@ func (controller Controller) Search(c *gin.Context) {
 	if res.Error != nil || len(results) == 0 {
 		pd.Messages = append(pd.Messages, Message{
 			Type:    "error",
-			Content: "No results found",
+			Content: pdS.Trans("No results found"),
 		})
 		log.Println(res.Error)
 		c.HTML(http.StatusOK, "search.html", pd)

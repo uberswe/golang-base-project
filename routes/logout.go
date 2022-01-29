@@ -13,7 +13,9 @@ func (controller Controller) Logout(c *gin.Context) {
 	session := sessions.Default(c)
 	session.Delete(middleware.SessionIDKey)
 	err := session.Save()
-	log.Println(err)
+	if err != nil {
+		log.Println(err)
+	}
 
 	c.Redirect(http.StatusTemporaryRedirect, "/")
 }

@@ -1,11 +1,11 @@
 <!doctype html>
-<html lang="en" class="h-100">
+<html lang="{{ call .Trans "en" }}" class="h-100">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="Markus Tenghamn">
-    <title>{{ .Title }} - Golang Base Project</title>
+    <title>{{ .Title }} - {{ call .Trans "site_name" }}</title>
 
     <link rel="canonical" href="https://golangbase.com">
 
