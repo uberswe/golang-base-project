@@ -9,6 +9,7 @@ See a live example at: [https://www.golangbase.com](https://www.golangbase.com)
 Projects that used this template as a starting point:
  
  - [tournify/web](https://github.com/tournify/web) - A website for creating tournaments
+ - [uberswe/domains-sweden](https://github.com/uberswe/domains-sweden) - Search all of Sweden's .SE and .NU domains
 
 Functionality includes:
 
