@@ -1,0 +1,54 @@
+<svg version="1.2" xmlns="http://www.w3.org/2000/svg" class="graph" aria-labelledby="title" role="img" viewBox="0 0 800 500"
+     preserveAspectRatio="xMinYMin meet">
+    <title id="title">{{ .Title }}</title>
+    <g class="grid x-grid" id="xGrid">
+        <line x1="90" x2="90" y1="5" y2="371"></line>
+    </g>
+    <g class="grid y-grid" id="yGrid">
+        <line x1="90" x2="705" y1="370" y2="370"></line>
+    </g>
+    <g class="labels x-labels">
+        {{ range $xvalue := .XValues }}
+        <text x="{{ $xvalue.X }}" y="{{ $xvalue.Y }}">{{ $xvalue.Value }}</text>
+        {{ end }}
+        <text x="400" y="420" class="label-title">{{ .XLabel }}</text>
+    </g>
+    <g class="labels y-labels">
+        {{ range $yvalue := .YValues }}
+        <text x="{{ $yvalue.X }}" y="{{ $yvalue.Y }}">{{ $yvalue.Value }}</text>
+        {{ end }}
+        <text x="50" y="200" class="label-title">{{ .YLabel }}</text>
+    </g>
+    <polyline fill="none" stroke="#0074d9" stroke-width="2" points="{{ .Points }}"/>
+</svg>
+<style>
+    .graph .labels.x-labels {
+        text-anchor: middle;
+    }
+
+    .graph .labels.y-labels {
+        text-anchor: end;
+    }
+
+    .graph {
+        width: 100%;
+        height: auto;
+    }
+
+    .graph .grid {
+        stroke: #ccc;
+        stroke-dasharray: 0;
+        stroke-width: 1;
+    }
+
+    .labels {
+        font-size: 10px;
+    }
+
+    .label-title {
+        font-weight: bold;
+        text-transform: uppercase;
+        font-size: 12px;
+        fill: black;
+    }
+</style>
