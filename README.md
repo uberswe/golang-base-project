@@ -1,5 +1,9 @@
 # Golang Base Project
 
+## Archived
+
+I am no longer maintaining this project. As an alternative consider checking out [pocketbase](https://github.com/pocketbase/pocketbase).
+
 [![GoDoc](https://godoc.org/github.com/uberswe/golang-base-project?status.svg)](https://godoc.org/github.com/uberswe/golang-base-project)
 
 A minimal Golang project with user authentication ready out of the box. All frontend assets should be less than 100 kB on every page load. 
